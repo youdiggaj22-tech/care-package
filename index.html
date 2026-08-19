@@ -4,215 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>For You 🌸</title>
-<!-- Google Fonts for a premium look -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --text-main: #4a3f35;
-    --accent: #ff4d6d;
-  }
+  :root { --text-main: #4a3f35; --accent: #ff4d6d; }
   
   body { 
-    margin: 0; 
-    padding: 0; 
-    font-family: 'Poppins', sans-serif; 
-    color: var(--text-main); 
-    text-align: center; 
-    overflow-x: hidden;
-    /* Animated Premium Gradient Background */
+    margin: 0; padding: 0; font-family: 'Poppins', sans-serif; color: var(--text-main); 
+    text-align: center; overflow: hidden; /* Hide scrollbars for app feel */
     background: linear-gradient(-45deg, #ffe6ea, #fdf5f3, #e0efe6, #f9d4d8);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    min-height: 100vh;
+    background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+    height: 100vh; touch-action: pan-y;
   }
+  @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* --- Glassmorphism UI Components --- */
   .glass-panel {
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(255, 180, 190, 0.2);
-    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 32px 0 rgba(255, 180, 190, 0.2); border-radius: 24px;
   }
 
-  /* --- Page Containers --- */
-  .page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    min-height: 100vh;
-    padding: 30px 20px 80px 20px;
-    box-sizing: border-box;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #page-1 {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  #page-2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(30px);
-    justify-content: center;
-  }
-
-  /* --- Typography --- */
-  h1 { 
-    font-size: 28px; 
-    font-weight: 700; 
-    background: linear-gradient(90deg, #ff4d6d, #f78ca0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 5px;
-    letter-spacing: -0.5px;
+  /* --- Stage Containers --- */
+  .stage {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100vh;
+    display: flex; flex-direction: column; align-items: center; 
+    padding: 30px 20px; box-sizing: border-box;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0; pointer-events: none; transform: scale(0.95);
+    overflow-y: auto; overflow-x: hidden;
   }
   
-  .subtitle {
-    font-size: 14px;
-    color: #888;
-    font-weight: 500;
-    margin-bottom: 25px;
-    opacity: 0.8;
-  }
+  #stage-1 { opacity: 1; pointer-events: auto; transform: scale(1); }
 
-  /* --- Advanced Gallery --- */
+  h1 { 
+    font-size: 26px; font-weight: 700; margin-bottom: 5px;
+    background: linear-gradient(90deg, #ff4d6d, #f78ca0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  
+  /* --- Gallery --- */
   .gallery-container { 
-    display: flex; 
-    overflow-x: auto; 
-    gap: 20px; 
-    width: 100%; 
-    max-width: 500px; 
-    padding: 20px 10px; 
-    scroll-snap-type: x mandatory; 
-    scrollbar-width: none;
+    display: flex; overflow-x: auto; gap: 15px; width: 100%; max-width: 450px; 
+    padding: 15px 5px; scroll-snap-type: x mandatory; scrollbar-width: none; margin-bottom: 10px;
   }
   .gallery-container::-webkit-scrollbar { display: none; }
+  .photo-card { flex: 0 0 85%; scroll-snap-align: center; padding: 10px; }
+  .photo-card img { width: 100%; height: 350px; object-fit: cover; border-radius: 16px; display: block; }
+  .caption { font-size: 14px; margin-top: 10px; font-weight: 600; }
 
-  .photo-card { 
-    flex: 0 0 82%; 
-    scroll-snap-align: center; 
-    padding: 12px; 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .photo-card:active {
-    transform: scale(0.98);
-  }
-  
-  .photo-card img { 
-    width: 100%; 
-    height: 380px; 
-    object-fit: cover; /* PERFECTLY UPRIGHT AND CENTERED */
-    border-radius: 16px; 
-    display: block;
-  }
-  
-  .caption { 
-    font-size: 15px; 
-    margin-top: 15px; 
-    font-weight: 600;
-    color: var(--text-main);
-  }
-
-  /* --- Premium Button --- */
+  /* --- Buttons --- */
   .premium-btn { 
-    background: linear-gradient(135deg, #ff4d6d, #ff758c);
-    color: white; 
-    border: none; 
-    padding: 18px 40px; 
-    font-size: 18px; 
-    font-weight: 600; 
-    border-radius: 50px; 
-    margin-top: 20px; 
-    cursor: pointer; 
-    box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4); 
-    transition: all 0.3s ease;
-    animation: floatBtn 3s ease-in-out infinite;
+    background: linear-gradient(135deg, #ff4d6d, #ff758c); color: white; border: none; 
+    padding: 16px 35px; font-size: 16px; font-weight: 600; border-radius: 50px; margin-top: 15px; 
+    cursor: pointer; box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4); transition: all 0.3s;
+    animation: floatBtn 3s infinite;
   }
-  
-  @keyframes floatBtn {
-    0%, 100% { transform: translateY(0); box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4); }
-    50% { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(255, 77, 109, 0.5); }
-  }
+  @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
-  /* --- PAGE 2 Specifics --- */
-  .flowers-advanced { 
-    font-size: 55px; 
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
+  /* --- Stage 2: Interaction --- */
+  .task-list { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 350px; margin-top: 20px; }
+  .task-btn {
+    background: rgba(255,255,255,0.7); border: 2px solid #ff4d6d; border-radius: 15px;
+    padding: 15px; font-size: 18px; font-weight: 600; color: var(--text-main);
+    transition: all 0.3s; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
   }
-  
-  .flowers-advanced span {
-    animation: gentleSway 3s ease-in-out infinite alternate;
-    display: inline-block;
-  }
-  
-  .flowers-advanced span:nth-child(2) { animation-delay: 0.5s; }
-  .flowers-advanced span:nth-child(3) { animation-delay: 1s; }
-  .flowers-advanced span:nth-child(4) { animation-delay: 1.5s; }
+  .task-btn.completed { background: #ff4d6d; color: white; transform: scale(0.95); border-color: #ff4d6d; }
+  #unlock-btn { display: none; margin-top: 30px; }
 
-  @keyframes gentleSway { 
-    0% { transform: rotate(-10deg) translateY(0); } 
-    100% { transform: rotate(10deg) translateY(-10px); } 
-  }
-  
+  /* --- Stage 3: The Message & Flower Rain --- */
   .message-card { 
-    padding: 30px; 
-    width: 90%; 
-    max-width: 420px; 
-    text-align: left; 
-    line-height: 1.8; 
-    font-size: 16px;
-    font-weight: 500;
+    padding: 30px; width: 90%; max-width: 400px; text-align: left; 
+    line-height: 1.7; font-size: 15px; font-weight: 500; margin-top: 20px; z-index: 10;
   }
+  .princess-title { font-size: 20px; color: #ff4d6d; font-weight: 700; text-align: center; margin-bottom: 15px; }
 
-  .message-card p {
-    margin-bottom: 15px;
-  }
-
-  /* Floating background particles */
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    animation: drift 10s infinite linear;
-    z-index: -1;
-  }
-
-  @keyframes drift {
-    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-    20% { opacity: 0.8; }
-    80% { opacity: 0.8; }
-    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
-  }
+  /* Flower Rain System */
+  #flower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; display: none; }
+  .falling-flower { position: absolute; top: -10%; animation: fall linear forwards; font-size: 24px; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
 
-  <!-- Floating Particles for Depth -->
-  <div class="particle" style="width: 20px; height: 20px; left: 10%; animation-duration: 12s;"></div>
-  <div class="particle" style="width: 35px; height: 35px; left: 80%; animation-duration: 18s; animation-delay: 2s;"></div>
-  <div class="particle" style="width: 15px; height: 15px; left: 40%; animation-duration: 15s; animation-delay: 5s;"></div>
-
-  <!-- ================= PAGE 1 ================= -->
-  <div id="page-1" class="page-container">
-    <h1>Your Digital Care Package</h1>
-    <div class="subtitle">Swipe to explore ✨</div>
+  <!-- ================= STAGE 1: GALLERY ================= -->
+  <div id="stage-1" class="stage">
+    <h1>Your Care Package ✨</h1>
+    <p style="font-size: 12px; color: #888;">(Swipe ↔️)</p>
     
     <div class="gallery-container">
       <div class="photo-card glass-panel">
@@ -229,46 +103,92 @@
       </div>
     </div>
 
-    <button class="premium-btn" onclick="revealMagic()">Tap for a surprise 💌</button>
+    <button class="premium-btn" onclick="goToStage(2)">Continue 💌</button>
   </div>
 
-  <!-- ================= PAGE 2 ================= -->
-  <div id="page-2" class="page-container">
-    <div class="flowers-advanced">
-      <span>🌸</span><span>🌷</span><span>🌻</span><span>🌸</span>
+  <!-- ================= STAGE 2: INTERACTION ================= -->
+  <div id="stage-2" class="stage">
+    <h1 style="font-size: 22px;">Doctor's Orders 👩‍⚕️</h1>
+    <p>Tap all three to unlock your surprise!</p>
+    
+    <div class="task-list">
+      <button class="task-btn" onclick="completeTask(this)">Drink Water 💧 <span>⭕</span></button>
+      <button class="task-btn" onclick="completeTask(this)">Get Some Rest 🛌 <span>⭕</span></button>
+      <button class="task-btn" onclick="completeTask(this)">Smile for me 😊 <span>⭕</span></button>
     </div>
+
+    <button id="unlock-btn" class="premium-btn" onclick="goToStage(3)">Open Letter 💌</button>
+  </div>
+
+  <!-- ================= STAGE 3: THE FINALE ================= -->
+  <div id="stage-3" class="stage">
+    <div id="flower-container"></div> <!-- Where the magic rain happens -->
     
     <div class="message-card glass-panel">
-      <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
+      <div class="princess-title">To the most beautiful princess 👑💖</div>
+      <p>Aditiiiiiiiiiiiii chiu 🛌</p>
       <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
       <p>bas kuch din seh leee fir thik hojayegi chiu , again the same healthy person you were and everything will be alright tension na lis</p>
       <p>Get well soon, my love. I'm right here if you need anything at all. 🥣🩹</p>
-      <div style="text-align: center; font-size: 35px; margin-top: 25px; animation: floatBtn 2s infinite;">❤️‍🩹</div>
+      <div style="text-align: center; font-size: 35px; margin-top: 20px; animation: floatBtn 2s infinite;">❤️‍🩹</div>
     </div>
   </div>
 
   <script>
-    function revealMagic() {
-      const p1 = document.getElementById('page-1');
-      const p2 = document.getElementById('page-2');
-
-      // Cinematic transition
-      p1.style.opacity = '0';
-      p1.style.transform = 'translateY(-40px) scale(0.95)';
-      p1.style.pointerEvents = 'none';
+    // --- Navigation Logic ---
+    function goToStage(stageNum) {
+      document.querySelectorAll('.stage').forEach(el => {
+        el.style.opacity = '0';
+        el.style.pointerEvents = 'none';
+        el.style.transform = 'scale(0.95)';
+      });
       
       setTimeout(() => {
-        p1.style.display = 'none';
-        p2.style.pointerEvents = 'auto';
+        const activeStage = document.getElementById('stage-' + stageNum);
+        activeStage.style.opacity = '1';
+        activeStage.style.pointerEvents = 'auto';
+        activeStage.style.transform = 'scale(1)';
         
-        // Trigger reflow
-        void p2.offsetWidth; 
-        
-        p2.style.opacity = '1';
-        p2.style.transform = 'translateY(0) scale(1)';
-      }, 600); 
+        if(stageNum === 3) startFlowerRain(); // Start the rain on the last page!
+      }, 500);
+    }
+
+    // --- Mini Game Logic ---
+    let tasksCompleted = 0;
+    function completeTask(btn) {
+      if(!btn.classList.contains('completed')) {
+        btn.classList.add('completed');
+        btn.innerHTML = btn.innerHTML.replace('⭕', '✅');
+        tasksCompleted++;
+        if(tasksCompleted === 3) {
+          setTimeout(() => {
+            document.getElementById('unlock-btn').style.display = 'block';
+          }, 300);
+        }
+      }
+    }
+
+    // --- Advanced Flower Rain Logic ---
+    function startFlowerRain() {
+      const container = document.getElementById('flower-container');
+      container.style.display = 'block';
+      const flowers = ['🌸', '🌷', '🌻', '✨', '💖'];
       
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setInterval(() => {
+        const flower = document.createElement('div');
+        flower.classList.add('falling-flower');
+        flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+        
+        // Randomize position, size, and speed
+        flower.style.left = Math.random() * 100 + 'vw';
+        flower.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        flower.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Falls over 4-7 seconds
+        
+        container.appendChild(flower);
+        
+        // Clean up memory after it falls
+        setTimeout(() => { flower.remove(); }, 7000);
+      }, 300); // New flower drops every 0.3 seconds!
     }
   </script>
 
