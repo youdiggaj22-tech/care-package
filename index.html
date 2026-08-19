@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For You 🌸</title>
+<style>
+  :root {
+    --bg-color: #fdf5f3; /* Soothing warm peach */
+    --card-bg: #ffffff;
+    --text-main: #5d4037; /* Soft brown instead of harsh black */
+    --accent: #81b29a; /* Healing sage green */
+    --accent-light: #e0efe6;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* --- Intro Screen --- */
+  #intro-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+
+  .tap-button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0 8px 20px rgba(129, 178, 154, 0.4);
+    cursor: pointer;
+    animation: breathe 3s infinite ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(129, 178, 154, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 12px 25px rgba(129, 178, 154, 0.6); }
+  }
+
+  /* --- Main Content Screen --- */
+  #main-content {
+    display: none;
+    opacity: 0;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px; /* Perfect for mobile */
+    box-sizing: border-box;
+    transition: opacity 1.5s ease-in;
+    padding-bottom: 50px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 26px;
+    color: var(--accent);
+    margin-bottom: 25px;
+    margin-top: 30px;
+  }
+
+  /* Polaroid Gallery */
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .polaroid {
+    background: var(--card-bg);
+    padding: 12px 12px 40px 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    width: 90%;
+    position: relative;
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+
+  .polaroid:nth-child(even) {
+    transform: rotate(3deg);
+  }
+
+  .polaroid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Keeps pictures from stretching */
+    border-radius: 4px;
+    background-color: var(--accent-light); /* Placeholder color if image fails */
+  }
+
+  .caption {
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #888;
+    font-size: 14px;
+    left: 0;
+  }
+
+  /* Message Card */
+  .message-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    line-height: 1.6;
+    font-size: 16px;
+    border-top: 5px solid var(--accent);
+  }
+
+  .heart {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 15px;
+    animation: beat 1.5s infinite;
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Intro Screen -->
+<div id="intro-screen">
+  <div style="font-size: 60px; margin-bottom: 20px;">🧸🍵🩹</div>
+  <button class="tap-button" onclick="openCarePackage()">
+    Tap to open your care package 💌
+  </button>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+  <h1>Your Digital Care Package ✨</h1>
+  
+  <div class="gallery">
+    <!-- PICTURE 1 -->
+    <div class="polaroid">
+      <!-- Change 'pic1.jpg' to the exact name of your first uploaded image -->
+      <img src="pic1.jpg" alt="Us">
+      <div class="caption">Thinking of you 💕</div>
+    </div>
+    
+    <!-- PICTURE 2 -->
+    <div class="polaroid">
+      <!-- Change 'pic2.jpg' to the exact name of your second uploaded image -->
+      <img src="pic2.jpg" alt="Us">
+      <div class="caption">Can't wait to see this smile again 🥺</div>
+    </div>
+
+    <!-- PICTURE 3 -->
+    <!-- Delete this whole polaroid block if you only have 2 pictures! -->
+    <div class="polaroid">
+      <!-- Change 'pic3.jpg' to the exact name of your third uploaded image -->
+      <img src="pic3.jpg" alt="Us">
+      <div class="caption">My favorite person 🌸</div>
+    </div>
+  </div>
+
+  <div class="message-card">
+    <p>Hey sleepyhead, 🛌💖</p>
+    <p>I know being sick is the absolute worst, so I made this little page to bring a tiny bit of sunshine to your bed. ☀️</p>
+    <p>Please drink lots of water, take your meds, and sleep as much as your body needs. I am sending you the biggest, warmest, tightest virtual hugs right now! 🤗</p>
+    <p>Get well soon, my love. I'm right here if you need anything at all. 🥣🩹</p>
+    <div class="heart">❤️‍🩹</div>
+  </div>
+</div>
+
+<script>
+  function openCarePackage() {
+    const intro = document.getElementById('intro-screen');
+    const content = document.getElementById('main-content');
+
+    // Float the intro screen up and fade it out
+    intro.style.transform = 'translateY(-20px)';
+    intro.style.opacity = '0';
+    
+    setTimeout(() => {
+      intro.style.display = 'none';
+      content.style.display = 'block';
+      
+      // Small delay to trigger the fade-in animation safely
+      setTimeout(() => {
+        content.style.opacity = '1';
+      }, 50);
+    }, 800); // Matches the CSS transition time
+  }
+</script>
+
+</body>
+</html>
