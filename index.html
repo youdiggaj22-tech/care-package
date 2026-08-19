@@ -23,6 +23,61 @@
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
+  }
+
+  /* --- 1. The Intro Screen & Button You Wanted! --- */
+  #intro-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+
+  /* --- 2. The Flowers Are Back! --- */
+  .flower-cluster {
+    font-size: 60px;
+    margin-bottom: 20px;
+    animation: sway 2s infinite alternate ease-in-out;
+    cursor: pointer;
+  }
+
+  @keyframes sway {
+    0% { transform: rotate(-15deg); }
+    100% { transform: rotate(15deg); }
+  }
+
+  .tap-button {
+    background-color: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+    cursor: pointer;
+    animation: breathe 2s infinite ease-in-out;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* --- Main Content Area --- */
+  #main-content {
+    display: none;
+    opacity: 0;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    transition: opacity 1.5s ease-in;
     padding-bottom: 50px;
   }
 
@@ -30,138 +85,136 @@
     text-align: center;
     font-size: 26px;
     color: var(--accent);
-    margin-bottom: 5px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
-  .intro-text {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #888;
-  }
-
-  /* Horizontal Swiping Gallery for Mobile */
-  .gallery-container {
-    width: 100%;
-    max-width: 500px;
-    overflow-x: auto;
+  .gallery {
     display: flex;
-    gap: 15px;
-    padding: 10px 20px;
-    box-sizing: border-box;
-    scroll-snap-type: x mandatory; /* Makes it snap into place when swiping */
-    scrollbar-width: none; /* Hides scrollbar for clean look */
-  }
-  
-  .gallery-container::-webkit-scrollbar {
-    display: none; 
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 20px;
   }
 
   .photo-frame {
     background: var(--card-bg);
     border-radius: 12px;
+    padding: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    min-width: 260px; /* Forces them to sit side-by-side */
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-    padding: 10px;
-    border: 1px solid #f0f0f0;
-    display: flex;
-    flex-direction: column;
+    width: 95%;
   }
 
+  /* --- 3. The Vertical-to-Horizontal Fix! --- */
   .img-wrapper {
     width: 100%;
-    height: 350px; 
+    height: 250px; /* Forces a wide, horizontal box */
     overflow: hidden;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fafafa;
+    background-color: #f0f0f0;
   }
 
-  /* This ensures the vertical images fit perfectly without stretching */
   .img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-  }
-
-  /* Quick fix class just in case any image is saved totally sideways */
-  .rotate-fix {
-    transform: rotate(90deg) scale(1.3);
+    /* This rotates your sideways pictures 90 degrees to sit horizontally! */
+    transform: rotate(90deg); 
+    width: 250px; /* Swaps the width and height */
+    height: 400px;
+    object-fit: cover;
   }
 
   .caption {
     width: 100%;
     text-align: center;
-    color: #777;
+    color: #888;
     font-size: 14px;
-    margin-top: 12px;
-    margin-bottom: 5px;
-    font-weight: 500;
+    margin-top: 10px;
   }
 
-  /* Exact Custom Message Card */
+  /* Custom Message Card */
   .message-card {
     background: var(--card-bg);
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    line-height: 1.7;
+    line-height: 1.6;
     font-size: 16px;
     border-top: 5px solid var(--accent);
-    width: 85%;
-    max-width: 380px;
-    margin-top: 15px;
+    margin-top: 25px;
   }
 
 </style>
 </head>
 <body>
 
-  <h1>Your Digital Care Package ✨</h1>
-  <p class="intro-text">Swipe to see more ↔️</p>
-  
-  <!-- Swiping Gallery -->
-  <div class="gallery-container">
-    
-    <!-- PHOTO 1 -->
-    <div class="photo-frame">
-      <div class="img-wrapper">
-        <img src="1.webp" alt="Aditi">
-      </div>
-      <p class="caption">Thinking of you 💕</p>
-    </div>
-    
-    <!-- PHOTO 2 -->
-    <div class="photo-frame">
-      <div class="img-wrapper">
-        <img src="3.webp" alt="Aditi">
-      </div>
-      <p class="caption">Can't wait to see this smile again 🥺</p>
-    </div>
-
-    <!-- PHOTO 3 -->
-    <div class="photo-frame">
-      <div class="img-wrapper">
-        <img src="Snapchat-707155020.webp" alt="Aditi">
-      </div>
-      <p class="caption">My favorite person 🌸</p>
-    </div>
-
+  <!-- The Loading Screen You Wanted -->
+  <div id="intro-screen">
+    <div class="flower-cluster" onclick="openCarePackage()">🌸 🌷 🌻</div>
+    <button class="tap-button" onclick="openCarePackage()">
+      Tap the flowers to open! 💌
+    </button>
   </div>
 
-  <!-- YOUR MESSAGE -->
-  <div class="message-card">
-    <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
-    <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
-    <p>bas kuch din seh leee fir thik hojayegi chiu , again the same healthy person you were and everything will be alright tension na lis</p>
-    <p>Get well soon, my love. I'm right here if you need anything at all. 🥣🩹</p>
-    <div style="text-align: center; font-size: 30px; margin-top: 15px;">❤️‍🩹</div>
+  <!-- The Actual Care Package -->
+  <div id="main-content">
+    <h1>For You 🌸</h1>
+    
+    <div class="gallery">
+      <!-- PHOTO 1 -->
+      <div class="photo-frame">
+        <div class="img-wrapper">
+          <img src="1.webp" alt="Aditi">
+        </div>
+        <p class="caption">Thinking of you 💕</p>
+      </div>
+      
+      <!-- PHOTO 2 -->
+      <div class="photo-frame">
+        <div class="img-wrapper">
+          <img src="3.webp" alt="Aditi">
+        </div>
+        <p class="caption">Can't wait to see this smile again 🥺</p>
+      </div>
+
+      <!-- PHOTO 3 -->
+      <div class="photo-frame">
+        <div class="img-wrapper">
+          <img src="Snapchat-707155020.webp" alt="Aditi">
+        </div>
+        <p class="caption">My favorite person 🌸</p>
+      </div>
+    </div>
+
+    <!-- YOUR MESSAGE -->
+    <div class="message-card">
+      <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
+      <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
+      <p>bas kuch din seh leee fir thik hojayegi chiu , again the same healthy person you were and everything will be alright tension na lis</p>
+      <p>Get well soon, my love. I'm right here if you need anything at all. 🥣🩹</p>
+      <div style="text-align: center; font-size: 30px; margin-top: 15px;">❤️‍🩹</div>
+    </div>
   </div>
+
+  <script>
+    function openCarePackage() {
+      const intro = document.getElementById('intro-screen');
+      const content = document.getElementById('main-content');
+
+      // Cool fade out animation
+      intro.style.transform = 'scale(1.1)';
+      intro.style.opacity = '0';
+      
+      setTimeout(() => {
+        intro.style.display = 'none';
+        content.style.display = 'block';
+        
+        setTimeout(() => {
+          content.style.opacity = '1';
+        }, 50);
+      }, 800); 
+    }
+  </script>
 
 </body>
 </html>
