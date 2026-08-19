@@ -4,102 +4,271 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>For You 🌸</title>
+<!-- Google Fonts for a premium look -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg-color: #fdf5f3; --card-bg: #ffffff; --text-main: #5d4037; --accent: #81b29a; }
-  body { margin: 0; padding: 0; background-color: var(--bg-color); font-family: 'Helvetica Neue', sans-serif; color: var(--text-main); text-align: center; overflow-x: hidden; }
-
-  /* --- PAGE 1: Care Package --- */
-  #page-1 { display: flex; flex-direction: column; align-items: center; padding: 20px; padding-bottom: 50px; }
-  h1 { color: var(--accent); margin-top: 20px; }
+  :root {
+    --text-main: #4a3f35;
+    --accent: #ff4d6d;
+  }
   
-  /* Horizontal Swiping Gallery */
+  body { 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Poppins', sans-serif; 
+    color: var(--text-main); 
+    text-align: center; 
+    overflow-x: hidden;
+    /* Animated Premium Gradient Background */
+    background: linear-gradient(-45deg, #ffe6ea, #fdf5f3, #e0efe6, #f9d4d8);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* --- Glassmorphism UI Components --- */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(255, 180, 190, 0.2);
+    border-radius: 24px;
+  }
+
+  /* --- Page Containers --- */
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 20px 80px 20px;
+    box-sizing: border-box;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #page-1 {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #page-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(30px);
+    justify-content: center;
+  }
+
+  /* --- Typography --- */
+  h1 { 
+    font-size: 28px; 
+    font-weight: 700; 
+    background: linear-gradient(90deg, #ff4d6d, #f78ca0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+    margin-bottom: 25px;
+    opacity: 0.8;
+  }
+
+  /* --- Advanced Gallery --- */
   .gallery-container { 
-    display: flex; overflow-x: auto; gap: 15px; width: 100%; max-width: 450px; 
-    padding: 10px; scroll-snap-type: x mandatory; scrollbar-width: none;
+    display: flex; 
+    overflow-x: auto; 
+    gap: 20px; 
+    width: 100%; 
+    max-width: 500px; 
+    padding: 20px 10px; 
+    scroll-snap-type: x mandatory; 
+    scrollbar-width: none;
   }
   .gallery-container::-webkit-scrollbar { display: none; }
 
   .photo-card { 
-    flex: 0 0 85%; scroll-snap-align: center; background: var(--card-bg); 
-    padding: 12px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    flex: 0 0 82%; 
+    scroll-snap-align: center; 
+    padding: 12px; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .photo-card:active {
+    transform: scale(0.98);
   }
   
-  /* PURE NORMAL IMAGES - NO NOOB ROTATIONS! */
   .photo-card img { 
     width: 100%; 
-    max-height: 450px; /* Keeps them from getting too tall */
-    object-fit: cover; /* Centers them perfectly in the frame */
-    border-radius: 8px; 
+    height: 380px; 
+    object-fit: cover; /* PERFECTLY UPRIGHT AND CENTERED */
+    border-radius: 16px; 
     display: block;
   }
   
-  .caption { color: #888; font-size: 14px; margin-top: 10px; font-weight: 500;}
-
-  .next-button { 
-    background-color: #ff4d6d; color: white; border: none; padding: 15px 30px; 
-    font-size: 18px; font-weight: bold; border-radius: 30px; margin-top: 30px; 
-    cursor: pointer; box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4); 
-    animation: breathe 2s infinite; 
+  .caption { 
+    font-size: 15px; 
+    margin-top: 15px; 
+    font-weight: 600;
+    color: var(--text-main);
   }
-  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-  /* --- PAGE 2: Flowers & Message --- */
-  #page-2 { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 90vh; padding: 20px; }
+  /* --- Premium Button --- */
+  .premium-btn { 
+    background: linear-gradient(135deg, #ff4d6d, #ff758c);
+    color: white; 
+    border: none; 
+    padding: 18px 40px; 
+    font-size: 18px; 
+    font-weight: 600; 
+    border-radius: 50px; 
+    margin-top: 20px; 
+    cursor: pointer; 
+    box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4); 
+    transition: all 0.3s ease;
+    animation: floatBtn 3s ease-in-out infinite;
+  }
   
-  .flowers { font-size: 50px; animation: sway 2s infinite alternate ease-in-out; margin-bottom: 25px; }
-  @keyframes sway { 0% { transform: rotate(-15deg); } 100% { transform: rotate(15deg); } }
+  @keyframes floatBtn {
+    0%, 100% { transform: translateY(0); box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4); }
+    50% { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(255, 77, 109, 0.5); }
+  }
+
+  /* --- PAGE 2 Specifics --- */
+  .flowers-advanced { 
+    font-size: 55px; 
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .flowers-advanced span {
+    animation: gentleSway 3s ease-in-out infinite alternate;
+    display: inline-block;
+  }
+  
+  .flowers-advanced span:nth-child(2) { animation-delay: 0.5s; }
+  .flowers-advanced span:nth-child(3) { animation-delay: 1s; }
+  .flowers-advanced span:nth-child(4) { animation-delay: 1.5s; }
+
+  @keyframes gentleSway { 
+    0% { transform: rotate(-10deg) translateY(0); } 
+    100% { transform: rotate(10deg) translateY(-10px); } 
+  }
   
   .message-card { 
-    background: var(--card-bg); padding: 25px; border-radius: 20px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 5px solid var(--accent); 
-    width: 90%; max-width: 380px; text-align: left; line-height: 1.6; font-size: 16px; 
+    padding: 30px; 
+    width: 90%; 
+    max-width: 420px; 
+    text-align: left; 
+    line-height: 1.8; 
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .message-card p {
+    margin-bottom: 15px;
+  }
+
+  /* Floating background particles */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    animation: drift 10s infinite linear;
+    z-index: -1;
+  }
+
+  @keyframes drift {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
   }
 </style>
 </head>
 <body>
 
-  <!-- PAGE 1 -->
-  <div id="page-1">
-    <h1>Your Digital Care Package ✨</h1>
-    <p style="color: #888; margin-bottom: 15px; font-size: 14px;">(Swipe to see more ↔️)</p>
+  <!-- Floating Particles for Depth -->
+  <div class="particle" style="width: 20px; height: 20px; left: 10%; animation-duration: 12s;"></div>
+  <div class="particle" style="width: 35px; height: 35px; left: 80%; animation-duration: 18s; animation-delay: 2s;"></div>
+  <div class="particle" style="width: 15px; height: 15px; left: 40%; animation-duration: 15s; animation-delay: 5s;"></div>
+
+  <!-- ================= PAGE 1 ================= -->
+  <div id="page-1" class="page-container">
+    <h1>Your Digital Care Package</h1>
+    <div class="subtitle">Swipe to explore ✨</div>
     
     <div class="gallery-container">
-      <div class="photo-card">
+      <div class="photo-card glass-panel">
         <img src="1.webp" alt="Aditi">
         <p class="caption">Thinking of you 💕</p>
       </div>
-      <div class="photo-card">
+      <div class="photo-card glass-panel">
         <img src="3.webp" alt="Aditi">
         <p class="caption">Can't wait to see this smile again 🥺</p>
       </div>
-      <div class="photo-card">
+      <div class="photo-card glass-panel">
         <img src="Snapchat-707155020.webp" alt="Aditi">
         <p class="caption">My favorite person 🌸</p>
       </div>
     </div>
 
-    <!-- The Button! -->
-    <button class="next-button" onclick="showPage2()">Tap for a surprise 💌</button>
+    <button class="premium-btn" onclick="revealMagic()">Tap for a surprise 💌</button>
   </div>
 
-  <!-- PAGE 2 -->
-  <div id="page-2">
-    <div class="flowers">🌸 🌷 🌻 🌸</div>
+  <!-- ================= PAGE 2 ================= -->
+  <div id="page-2" class="page-container">
+    <div class="flowers-advanced">
+      <span>🌸</span><span>🌷</span><span>🌻</span><span>🌸</span>
+    </div>
     
-    <div class="message-card">
+    <div class="message-card glass-panel">
       <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
       <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
       <p>bas kuch din seh leee fir thik hojayegi chiu , again the same healthy person you were and everything will be alright tension na lis</p>
       <p>Get well soon, my love. I'm right here if you need anything at all. 🥣🩹</p>
-      <div style="text-align: center; font-size: 30px; margin-top: 15px;">❤️‍🩹</div>
+      <div style="text-align: center; font-size: 35px; margin-top: 25px; animation: floatBtn 2s infinite;">❤️‍🩹</div>
     </div>
   </div>
 
   <script>
-    function showPage2() {
-      document.getElementById('page-1').style.display = 'none';
-      document.getElementById('page-2').style.display = 'flex';
-      window.scrollTo(0, 0); 
+    function revealMagic() {
+      const p1 = document.getElementById('page-1');
+      const p2 = document.getElementById('page-2');
+
+      // Cinematic transition
+      p1.style.opacity = '0';
+      p1.style.transform = 'translateY(-40px) scale(0.95)';
+      p1.style.pointerEvents = 'none';
+      
+      setTimeout(() => {
+        p1.style.display = 'none';
+        p2.style.pointerEvents = 'auto';
+        
+        // Trigger reflow
+        void p2.offsetWidth; 
+        
+        p2.style.opacity = '1';
+        p2.style.transform = 'translateY(0) scale(1)';
+      }, 600); 
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 
