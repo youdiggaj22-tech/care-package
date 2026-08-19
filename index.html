@@ -6,10 +6,10 @@
 <title>For You 🌸</title>
 <style>
   :root {
-    --bg-color: #fdf5f3; /* Soothing warm peach */
+    --bg-color: #fdf5f3; 
     --card-bg: #ffffff;
-    --text-main: #5d4037; /* Soft brown */
-    --accent: #81b29a; /* Healing sage green */
+    --text-main: #5d4037; 
+    --accent: #81b29a; 
   }
   
   body {
@@ -30,67 +30,92 @@
     text-align: center;
     font-size: 26px;
     color: var(--accent);
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-top: 30px;
   }
 
   .intro-text {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #888;
   }
 
-  /* Photo Gallery (Clean & Straight) */
-  .gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 30px;
+  /* Horizontal Swiping Gallery for Mobile */
+  .gallery-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
+    overflow-x: auto;
+    display: flex;
+    gap: 15px;
+    padding: 10px 20px;
     box-sizing: border-box;
-    padding: 0 20px;
+    scroll-snap-type: x mandatory; /* Makes it snap into place when swiping */
+    scrollbar-width: none; /* Hides scrollbar for clean look */
+  }
+  
+  .gallery-container::-webkit-scrollbar {
+    display: none; 
   }
 
   .photo-frame {
     background: var(--card-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    width: 100%;
-    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    min-width: 260px; /* Forces them to sit side-by-side */
+    flex: 0 0 auto;
+    scroll-snap-align: center;
     padding: 10px;
-    border: 1px solid #eee;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
   }
 
-  .photo-frame img {
+  .img-wrapper {
     width: 100%;
-    height: auto;
-    border-radius: 4px;
-    display: block;
-    object-fit: cover;
+    height: 350px; 
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+  }
+
+  /* This ensures the vertical images fit perfectly without stretching */
+  .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+
+  /* Quick fix class just in case any image is saved totally sideways */
+  .rotate-fix {
+    transform: rotate(90deg) scale(1.3);
   }
 
   .caption {
     width: 100%;
     text-align: center;
-    color: #888;
+    color: #777;
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: 500;
   }
 
-  /* Message Card */
+  /* Exact Custom Message Card */
   .message-card {
     background: var(--card-bg);
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    line-height: 1.6;
+    line-height: 1.7;
     font-size: 16px;
     border-top: 5px solid var(--accent);
-    width: 90%;
+    width: 85%;
     max-width: 380px;
-    margin-top: 10px;
+    margin-top: 15px;
   }
 
 </style>
@@ -98,29 +123,38 @@
 <body>
 
   <h1>Your Digital Care Package ✨</h1>
-  <p class="intro-text">I hope this small album makes you feel a little better. 🥰</p>
+  <p class="intro-text">Swipe to see more ↔️</p>
   
-  <div class="gallery">
+  <!-- Swiping Gallery -->
+  <div class="gallery-container">
+    
     <!-- PHOTO 1 -->
     <div class="photo-frame">
-      <img src="1.webp" alt="Us">
+      <div class="img-wrapper">
+        <img src="1.webp" alt="Aditi">
+      </div>
       <p class="caption">Thinking of you 💕</p>
     </div>
     
     <!-- PHOTO 2 -->
     <div class="photo-frame">
-      <img src="3.webp" alt="Us">
+      <div class="img-wrapper">
+        <img src="3.webp" alt="Aditi">
+      </div>
       <p class="caption">Can't wait to see this smile again 🥺</p>
     </div>
 
     <!-- PHOTO 3 -->
     <div class="photo-frame">
-      <img src="Snapchat-707155020.webp" alt="Us">
+      <div class="img-wrapper">
+        <img src="Snapchat-707155020.webp" alt="Aditi">
+      </div>
       <p class="caption">My favorite person 🌸</p>
     </div>
+
   </div>
 
-  <!-- YOUR CUSTOM MESSAGE -->
+  <!-- YOUR MESSAGE -->
   <div class="message-card">
     <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
     <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
