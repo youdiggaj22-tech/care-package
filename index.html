@@ -5,188 +5,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>For You 🌸</title>
 <style>
-  :root {
-    --bg-color: #fdf5f3; 
-    --card-bg: #ffffff;
-    --text-main: #5d4037; 
-    --accent: #81b29a; 
+  :root { --bg-color: #fdf5f3; --card-bg: #ffffff; --text-main: #5d4037; --accent: #81b29a; }
+  body { margin: 0; padding: 0; background-color: var(--bg-color); font-family: 'Helvetica Neue', sans-serif; color: var(--text-main); text-align: center; overflow-x: hidden; }
+
+  /* --- PAGE 1: Care Package --- */
+  #page-1 { display: flex; flex-direction: column; align-items: center; padding: 20px; padding-bottom: 50px; }
+  h1 { color: var(--accent); margin-top: 20px; }
+  
+  /* Horizontal Swiping Gallery */
+  .gallery-container { 
+    display: flex; overflow-x: auto; gap: 15px; width: 100%; max-width: 450px; 
+    padding: 10px; scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .gallery-container::-webkit-scrollbar { display: none; }
+
+  .photo-card { 
+    flex: 0 0 85%; scroll-snap-align: center; background: var(--card-bg); 
+    padding: 12px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
   }
   
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: var(--text-main);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
+  /* PURE NORMAL IMAGES - NO NOOB ROTATIONS! */
+  .photo-card img { 
+    width: 100%; 
+    max-height: 450px; /* Keeps them from getting too tall */
+    object-fit: cover; /* Centers them perfectly in the frame */
+    border-radius: 8px; 
+    display: block;
   }
+  
+  .caption { color: #888; font-size: 14px; margin-top: 10px; font-weight: 500;}
 
-  /* --- 1. The Intro Screen & Button You Wanted! --- */
-  #intro-screen {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--bg-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  .next-button { 
+    background-color: #ff4d6d; color: white; border: none; padding: 15px 30px; 
+    font-size: 18px; font-weight: bold; border-radius: 30px; margin-top: 30px; 
+    cursor: pointer; box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4); 
+    animation: breathe 2s infinite; 
   }
+  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-  /* --- 2. The Flowers Are Back! --- */
-  .flower-cluster {
-    font-size: 60px;
-    margin-bottom: 20px;
-    animation: sway 2s infinite alternate ease-in-out;
-    cursor: pointer;
+  /* --- PAGE 2: Flowers & Message --- */
+  #page-2 { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 90vh; padding: 20px; }
+  
+  .flowers { font-size: 50px; animation: sway 2s infinite alternate ease-in-out; margin-bottom: 25px; }
+  @keyframes sway { 0% { transform: rotate(-15deg); } 100% { transform: rotate(15deg); } }
+  
+  .message-card { 
+    background: var(--card-bg); padding: 25px; border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 5px solid var(--accent); 
+    width: 90%; max-width: 380px; text-align: left; line-height: 1.6; font-size: 16px; 
   }
-
-  @keyframes sway {
-    0% { transform: rotate(-15deg); }
-    100% { transform: rotate(15deg); }
-  }
-
-  .tap-button {
-    background-color: #ff4d6d;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 30px;
-    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
-    cursor: pointer;
-    animation: breathe 2s infinite ease-in-out;
-  }
-
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-
-  /* --- Main Content Area --- */
-  #main-content {
-    display: none;
-    opacity: 0;
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-    transition: opacity 1.5s ease-in;
-    padding-bottom: 50px;
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 26px;
-    color: var(--accent);
-    margin-top: 20px;
-  }
-
-  .gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    margin-top: 20px;
-  }
-
-  .photo-frame {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    width: 95%;
-  }
-
-  /* --- 3. The Vertical-to-Horizontal Fix! --- */
-  .img-wrapper {
-    width: 100%;
-    height: 250px; /* Forces a wide, horizontal box */
-    overflow: hidden;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-  }
-
-  .img-wrapper img {
-    /* This rotates your sideways pictures 90 degrees to sit horizontally! */
-    transform: rotate(90deg); 
-    width: 250px; /* Swaps the width and height */
-    height: 400px;
-    object-fit: cover;
-  }
-
-  .caption {
-    width: 100%;
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-    margin-top: 10px;
-  }
-
-  /* Custom Message Card */
-  .message-card {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    line-height: 1.6;
-    font-size: 16px;
-    border-top: 5px solid var(--accent);
-    margin-top: 25px;
-  }
-
 </style>
 </head>
 <body>
 
-  <!-- The Loading Screen You Wanted -->
-  <div id="intro-screen">
-    <div class="flower-cluster" onclick="openCarePackage()">🌸 🌷 🌻</div>
-    <button class="tap-button" onclick="openCarePackage()">
-      Tap the flowers to open! 💌
-    </button>
-  </div>
-
-  <!-- The Actual Care Package -->
-  <div id="main-content">
-    <h1>For You 🌸</h1>
+  <!-- PAGE 1 -->
+  <div id="page-1">
+    <h1>Your Digital Care Package ✨</h1>
+    <p style="color: #888; margin-bottom: 15px; font-size: 14px;">(Swipe to see more ↔️)</p>
     
-    <div class="gallery">
-      <!-- PHOTO 1 -->
-      <div class="photo-frame">
-        <div class="img-wrapper">
-          <img src="1.webp" alt="Aditi">
-        </div>
+    <div class="gallery-container">
+      <div class="photo-card">
+        <img src="1.webp" alt="Aditi">
         <p class="caption">Thinking of you 💕</p>
       </div>
-      
-      <!-- PHOTO 2 -->
-      <div class="photo-frame">
-        <div class="img-wrapper">
-          <img src="3.webp" alt="Aditi">
-        </div>
+      <div class="photo-card">
+        <img src="3.webp" alt="Aditi">
         <p class="caption">Can't wait to see this smile again 🥺</p>
       </div>
-
-      <!-- PHOTO 3 -->
-      <div class="photo-frame">
-        <div class="img-wrapper">
-          <img src="Snapchat-707155020.webp" alt="Aditi">
-        </div>
+      <div class="photo-card">
+        <img src="Snapchat-707155020.webp" alt="Aditi">
         <p class="caption">My favorite person 🌸</p>
       </div>
     </div>
 
-    <!-- YOUR MESSAGE -->
+    <!-- The Button! -->
+    <button class="next-button" onclick="showPage2()">Tap for a surprise 💌</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="page-2">
+    <div class="flowers">🌸 🌷 🌻 🌸</div>
+    
     <div class="message-card">
       <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
       <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
@@ -197,22 +96,10 @@
   </div>
 
   <script>
-    function openCarePackage() {
-      const intro = document.getElementById('intro-screen');
-      const content = document.getElementById('main-content');
-
-      // Cool fade out animation
-      intro.style.transform = 'scale(1.1)';
-      intro.style.opacity = '0';
-      
-      setTimeout(() => {
-        intro.style.display = 'none';
-        content.style.display = 'block';
-        
-        setTimeout(() => {
-          content.style.opacity = '1';
-        }, 50);
-      }, 800); 
+    function showPage2() {
+      document.getElementById('page-1').style.display = 'none';
+      document.getElementById('page-2').style.display = 'flex';
+      window.scrollTo(0, 0); 
     }
   </script>
 
