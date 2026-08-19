@@ -8,9 +8,8 @@
   :root {
     --bg-color: #fdf5f3; /* Soothing warm peach */
     --card-bg: #ffffff;
-    --text-main: #5d4037; /* Soft brown instead of harsh black */
+    --text-main: #5d4037; /* Soft brown */
     --accent: #81b29a; /* Healing sage green */
-    --accent-light: #e0efe6;
   }
   
   body {
@@ -24,51 +23,6 @@
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
-  }
-
-  /* --- Intro Screen --- */
-  #intro-screen {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--bg-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-  }
-
-  .tap-button {
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 30px;
-    box-shadow: 0 8px 20px rgba(129, 178, 154, 0.4);
-    cursor: pointer;
-    animation: breathe 3s infinite ease-in-out;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(129, 178, 154, 0.4); }
-    50% { transform: scale(1.05); box-shadow: 0 12px 25px rgba(129, 178, 154, 0.6); }
-  }
-
-  /* --- Main Content Screen --- */
-  #main-content {
-    display: none;
-    opacity: 0;
-    padding: 20px;
-    width: 100%;
-    max-width: 400px; /* Perfect for mobile */
-    box-sizing: border-box;
-    transition: opacity 1.5s ease-in;
     padding-bottom: 50px;
   }
 
@@ -76,51 +30,53 @@
     text-align: center;
     font-size: 26px;
     color: var(--accent);
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     margin-top: 30px;
   }
 
-  /* Polaroid Gallery */
+  .intro-text {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+
+  /* Photo Gallery (Clean & Straight) */
   .gallery {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 25px;
     margin-bottom: 30px;
-  }
-
-  .polaroid {
-    background: var(--card-bg);
-    padding: 12px 12px 40px 12px;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    width: 90%;
-    position: relative;
-    transform: rotate(-2deg);
-    transition: transform 0.3s ease;
-  }
-
-  .polaroid:nth-child(even) {
-    transform: rotate(3deg);
-  }
-
-  .polaroid img {
     width: 100%;
-    height: 250px;
-    object-fit: cover; /* Keeps pictures from stretching */
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+
+  .photo-frame {
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    border: 1px solid #eee;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: auto;
     border-radius: 4px;
-    background-color: var(--accent-light); /* Placeholder color if image fails */
+    display: block;
+    object-fit: cover;
   }
 
   .caption {
-    position: absolute;
-    bottom: 12px;
     width: 100%;
     text-align: center;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
     color: #888;
     font-size: 14px;
-    left: 0;
+    margin-top: 10px;
   }
 
   /* Message Card */
@@ -132,86 +88,46 @@
     line-height: 1.6;
     font-size: 16px;
     border-top: 5px solid var(--accent);
+    width: 90%;
+    max-width: 380px;
+    margin-top: 10px;
   }
 
-  .heart {
-    text-align: center;
-    font-size: 30px;
-    margin-top: 15px;
-    animation: beat 1.5s infinite;
-  }
-
-  @keyframes beat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.15); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.15); }
-  }
 </style>
 </head>
 <body>
 
-<!-- Intro Screen -->
-<div id="intro-screen">
-  <div style="font-size: 60px; margin-bottom: 20px;">🧸🍵🩹</div>
-  <button class="tap-button" onclick="openCarePackage()">
-    Tap to open your care package 💌
-  </button>
-</div>
-
-<!-- Main Content -->
-<div id="main-content">
   <h1>Your Digital Care Package ✨</h1>
+  <p class="intro-text">I hope this small album makes you feel a little better. 🥰</p>
   
   <div class="gallery">
-    <!-- PICTURE 1 -->
-    <div class="polaroid">
+    <!-- PHOTO 1 -->
+    <div class="photo-frame">
       <img src="1.webp" alt="Us">
-      <div class="caption">Thinking of you 💕</div>
+      <p class="caption">Thinking of you 💕</p>
     </div>
     
-    <!-- PICTURE 2 -->
-    <div class="polaroid">
+    <!-- PHOTO 2 -->
+    <div class="photo-frame">
       <img src="3.webp" alt="Us">
-      <div class="caption">Can't wait to see this smile again 🥺</div>
+      <p class="caption">Can't wait to see this smile again 🥺</p>
     </div>
 
-    <!-- PICTURE 3 -->
-    <div class="polaroid">
+    <!-- PHOTO 3 -->
+    <div class="photo-frame">
       <img src="Snapchat-707155020.webp" alt="Us">
-      <div class="caption">My favorite person 🌸</div>
+      <p class="caption">My favorite person 🌸</p>
     </div>
   </div>
 
+  <!-- YOUR CUSTOM MESSAGE -->
   <div class="message-card">
-    <p>Aditiiiiiiiiiiii chiu 🛌💖</p>
+    <p>Aditiiiiiiiiiiiii chiu 🛌💖</p>
     <p>Ik sick hona bhot worst part hai and it feels really bad so i made this for you ☀️</p>
-    <p>bas kuch din seh leee fir thik hojayegi chiu , again the same healthy person you were and everything will be alright tension na lis </p>
-    <p>Get well soon, my love. I'm right here if you need anything at all. 🩹</p>
-    <div class="heart">❤️‍🩹</div>
+    <p>bas kuch din seh leee fir thik hojayegi chiu , again the same healthy person you were and everything will be alright tension na lis</p>
+    <p>Get well soon, my love. I'm right here if you need anything at all. 🥣🩹</p>
+    <div style="text-align: center; font-size: 30px; margin-top: 15px;">❤️‍🩹</div>
   </div>
-</div>
-
-<script>
-  function openCarePackage() {
-    const intro = document.getElementById('intro-screen');
-    const content = document.getElementById('main-content');
-
-    // Float the intro screen up and fade it out
-    intro.style.transform = 'translateY(-20px)';
-    intro.style.opacity = '0';
-    
-    setTimeout(() => {
-      intro.style.display = 'none';
-      content.style.display = 'block';
-      
-      // Small delay to trigger the fade-in animation safely
-      setTimeout(() => {
-        content.style.opacity = '1';
-      }, 50);
-    }, 800); // Matches the CSS transition time
-  }
-</script>
 
 </body>
 </html>
